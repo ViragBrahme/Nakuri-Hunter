@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:naukri_hunter/bloc/dbbloc.dart';
 
 import 'search_results.dart';
+import 'db/naukri_hunter_db.dart';
+import 'bloc/dbbloc.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,7 +15,7 @@ class _HomePageState extends State<HomePage> {
 
   TextEditingController skillsTextEditCont = new TextEditingController();
   TextEditingController technologiesTextEditCont = new TextEditingController();
-  TextEditingController joiningWithinTextEditCont = new TextEditingController();
+  TextEditingController experienceTextEditCont = new TextEditingController();
   TextEditingController prefferedLocTextEditCont = new TextEditingController();
   TextEditingController expectedCTCTextEditCont = new TextEditingController();
 
@@ -24,6 +27,7 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Builder(builder: (BuildContext context) {
           return SingleChildScrollView(
+            padding: EdgeInsets.all(24.0),
             child: Form(
               key: _formKey,
               child: Column(
@@ -49,15 +53,25 @@ class _HomePageState extends State<HomePage> {
                         labelText: 'Technologies',
                         contentPadding: EdgeInsets.all(20.0)),
                   ),
-                  TextField(
-                    controller: joiningWithinTextEditCont,
+                  TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please Enter Your Experience';
+                      }
+                    },
+                    controller: experienceTextEditCont,
                     decoration: InputDecoration(
-                        labelText: 'Notice Period in Days',
+                        labelText: 'Experience in years',
                         contentPadding: EdgeInsets.all(20.0)),
                     keyboardType: TextInputType.numberWithOptions(
                         decimal: false, signed: false),
                   ),
-                  TextField(
+                  TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please Enter Your Preffered Location';
+                      }
+                    },
                     controller: prefferedLocTextEditCont,
                     decoration: InputDecoration(
                         labelText: 'Preffered Location',
@@ -66,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                   TextField(
                     controller: expectedCTCTextEditCont,
                     decoration: InputDecoration(
-                        labelText: 'Expected CTC per Annum',
+                        labelText: 'Expected CTC per Annum in lacs',
                         contentPadding: EdgeInsets.all(20.0)),
                     keyboardType: TextInputType.numberWithOptions(
                         decimal: false, signed: false),
@@ -76,17 +90,21 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Center(
                       child: RaisedButton(
+                        padding: EdgeInsets.only(left:40,top:10,right:40,bottom:10),
+                        color: Colors.deepPurple,
+                        textColor: Colors.white,
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
-                        Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text('Processing Data')));
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SearchResult()));
+                                builder: (context) => SearchResult(
+                                    prefferedLocTextEditCont.text,
+                                    int.parse(expectedCTCTextEditCont.text),
+                                    int.parse(experienceTextEditCont.text))));
                       }
                     },
-                    child: Text('Search'),
+                    child: Text('SEARCH'),
                   ))
                 ],
               ),
