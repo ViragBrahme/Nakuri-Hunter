@@ -36,7 +36,7 @@ class TopButtonsView extends StatelessWidget {
           )),
           Expanded(
               child: FlatButton(
-            child: Text("Job Posted"),
+            child: Text("Location"),
             onPressed: () {},
           ))
         ],
