@@ -6,6 +6,9 @@ class SearchResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Search Results"),
+      ),
       body: Column(
         children: <Widget>[TopButtonsView(), HeaderRowListView()],
       ),
@@ -17,34 +20,25 @@ class TopButtonsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120,
-      color: Colors.black45,
+      height: 50,
+      color: Colors.white,
       child: Row(
         children: <Widget>[
           Expanded(
-            child: InkWell(
-              child: Text("First", textAlign: TextAlign.center),
-              onTap: () {
-                print("First");
-              },
-            ),
-          ),
+              child: FlatButton(
+            child: Text("Experience"),
+            onPressed: () {},
+          )),
           Expanded(
-            child: InkWell(
-              child: Text("Second", textAlign: TextAlign.center),
-              onTap: () {
-                print("Second");
-              },
-            ),
-          ),
+              child: FlatButton(
+            child: Text("Salary"),
+            onPressed: () {},
+          )),
           Expanded(
-            child: InkWell(
-              child: Text("Third", textAlign: TextAlign.center),
-              onTap: () {
-                print("Third");
-              },
-            ),
-          )
+              child: FlatButton(
+            child: Text("Job Posted"),
+            onPressed: () {},
+          ))
         ],
       ),
     );
@@ -73,10 +67,6 @@ class HeaderRowListView extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                   subtitle: Text("Flutter"),
-                ),
-                Divider(
-                  color: Colors.blue,
-                  indent: 16.0,
                 ),
               ],
             ),
